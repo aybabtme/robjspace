@@ -2,6 +2,7 @@ package rubyobj
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -118,11 +119,17 @@ func (r *RubyObject) loadSchema(schema *objectSchema) error {
 
 	r.flags = flagsFromSchema(schema)
 
-	switch r.Type {
-	case Float:
-		r.Value, err = strconv.ParseFloat(schema.Value, 64)
-		accumulate(err)
-	default:
+	if r.Type == Float {
+		switch schema.Value {
+		case "nan":
+			r.Value = math.NaN()
+		case "-nan":
+			r.Value = -math.NaN()
+		default:
+			r.Value, err = strconv.ParseFloat(schema.Value, 64)
+			accumulate(err)
+		}
+	} else {
 		r.Value = schema.Value
 	}
 

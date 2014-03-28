@@ -8,8 +8,10 @@ import (
 	"testing"
 )
 
-func BenchmarkDecode_TinyDump(b *testing.B)  { decode(b, "testdata/tiny.json") }
-func BenchmarkDecode_SmallDump(b *testing.B) { decode(b, "testdata/small.json") }
+func BenchmarkDecode_TinyDump(b *testing.B)   { decode(b, "testdata/tiny.json") }
+func BenchmarkDecode_SmallDump(b *testing.B)  { decode(b, "testdata/small.json") }
+func BenchmarkDecode_MediumDump(b *testing.B) { decode(b, "testdata/medium.json") }
+func BenchmarkDecode_HugeDump(b *testing.B)   { decode(b, "testdata/huge.json") }
 
 func decode(b *testing.B, filename string) {
 	r := jsonReader(b, filename)
@@ -32,8 +34,10 @@ func decode(b *testing.B, filename string) {
 	}
 }
 
-func BenchmarkEncode_TinyDump(b *testing.B)  { encode(b, "testdata/tiny.json") }
-func BenchmarkEncode_SmallDump(b *testing.B) { encode(b, "testdata/small.json") }
+func BenchmarkEncode_TinyDump(b *testing.B)   { encode(b, "testdata/tiny.json") }
+func BenchmarkEncode_SmallDump(b *testing.B)  { encode(b, "testdata/small.json") }
+func BenchmarkEncode_MediumDump(b *testing.B) { encode(b, "testdata/medium.json") }
+func BenchmarkEncode_HugeDump(b *testing.B)   { encode(b, "testdata/huge.json") }
 
 func encode(b *testing.B, filename string) {
 
