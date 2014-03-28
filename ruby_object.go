@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// RubyObject is the deserialized form of an object in an ObjectSpace dump.
 type RubyObject struct {
 	Type  RubyType
 	Value interface{}

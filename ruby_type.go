@@ -58,8 +58,10 @@ func flagsFromSchema(schema *objectSchema) flagType {
 	return flag
 }
 
+// RubyType for RubyObjects
 type RubyType uint8
 
+// Possible types taken by a RubyObject.
 const (
 	Array RubyType = iota
 	Bignum
@@ -89,7 +91,7 @@ const (
 	Zombie
 )
 
-// Name is the string repesentation of this type in a ObjectSpace dump.
+// Name is the string repesentation of this type in an ObjectSpace dump.
 func (rt RubyType) Name() string {
 	switch rt {
 	case Array:
