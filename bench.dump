@@ -1,6 +1,17 @@
 PASS
-BenchmarkDecode_TinyDump	 5000000	       308 ns/op
-BenchmarkDecode_SmallDump	 5000000	       359 ns/op
-BenchmarkEncode_TinyDump	      10	 132646092 ns/op
-BenchmarkEncode_SmallDump	    1000	   2663438 ns/op
-ok  	github.com/aybabtme/rubyobj	11.784s
+BenchmarkDecode_TinyDump	 5000000	       310 ns/op
+BenchmarkDecode_SmallDump	 5000000	       308 ns/op
+BenchmarkDecode_MediumDump	       1	1129755630 ns/op
+BenchmarkDecode_BigDump	       1	33173068070 ns/op
+BenchmarkDecode_HugeDump	       1	164315772454 ns/op
+BenchmarkParallelDecode_TinyDump	   50000	     28573 ns/op
+BenchmarkParallelDecode_SmallDump	   50000	     26318 ns/op
+BenchmarkParallelDecode_MediumDump	   50000	     28530 ns/op
+BenchmarkParallelDecode_BigDump	       1	1870570365 ns/op
+BenchmarkParallelDecode_HugeDump	       1	9555048768 ns/op
+BenchmarkEncode_TinyDump	    1000	   2511647 ns/op
+BenchmarkEncode_SmallDump	      10	 128411836 ns/op
+BenchmarkEncode_MediumDump	       2	 521905246 ns/op
+BenchmarkEncode_BigDump	       1	4026552921 ns/op
+BenchmarkEncode_HugeDump	       1	22840934259 ns/op
+ok  	github.com/aybabtme/rubyobj	460.778s

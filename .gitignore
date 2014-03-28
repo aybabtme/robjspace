@@ -1,2 +1,9 @@
 testdata/huge.json
 testdata/huge.json.gz
+testdata/big.json
+testdata/medium.json
+cpu.pprof
+.pprof
+cpu.pprof
+mem.pprof
+testdata/big.json.gz

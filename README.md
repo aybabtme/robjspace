@@ -12,7 +12,7 @@ Provides an encoder and a decoder for Ruby ObjectSpace heap dumps.
 go get github.com/aybabtme/robjspace
 ```
 
-Then in your Go code:
+Then in your Go code (this shows the slow decoder):
 
 ```go
 r := yourFavoriteReader() // say a file, or stdin
@@ -27,4 +27,14 @@ for dec := rubyobj.NewDecoder(r); err == nil; err = dec.Decode(&rubyObj) {
 if err != io.EOF {
   perror(err)
 }
+```
+
+# Performance
+
+Using the fast `ParallelDecode`:
+
+```bash
+$ go run loadall.go parallel --filename ../testdata/huge.json
+loading 549MB from 'huge.json'
+2489364 heap objects in 4.699698607s
 ```

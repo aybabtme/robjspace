@@ -5,13 +5,22 @@ import (
 	"github.com/aybabtme/rubyobj"
 	"io"
 	"io/ioutil"
+	"runtime"
+	"sync"
 	"testing"
 )
 
 func BenchmarkDecode_TinyDump(b *testing.B)   { decode(b, "testdata/tiny.json") }
 func BenchmarkDecode_SmallDump(b *testing.B)  { decode(b, "testdata/small.json") }
 func BenchmarkDecode_MediumDump(b *testing.B) { decode(b, "testdata/medium.json") }
+func BenchmarkDecode_BigDump(b *testing.B)    { decode(b, "testdata/big.json") }
 func BenchmarkDecode_HugeDump(b *testing.B)   { decode(b, "testdata/huge.json") }
+
+func BenchmarkParallelDecode_TinyDump(b *testing.B)   { parallelDecode(b, "testdata/tiny.json") }
+func BenchmarkParallelDecode_SmallDump(b *testing.B)  { parallelDecode(b, "testdata/small.json") }
+func BenchmarkParallelDecode_MediumDump(b *testing.B) { parallelDecode(b, "testdata/medium.json") }
+func BenchmarkParallelDecode_BigDump(b *testing.B)    { parallelDecode(b, "testdata/big.json") }
+func BenchmarkParallelDecode_HugeDump(b *testing.B)   { parallelDecode(b, "testdata/huge.json") }
 
 func decode(b *testing.B, filename string) {
 	r := jsonReader(b, filename)
@@ -34,9 +43,44 @@ func decode(b *testing.B, filename string) {
 	}
 }
 
+func parallelDecode(b *testing.B, filename string) {
+	defer runtime.GOMAXPROCS(runtime.GOMAXPROCS(runtime.NumCPU()))
+
+	r := jsonReader(b, filename)
+
+	b.ResetTimer()
+	for n := 0; n < b.N; n++ {
+
+		objC, errC := rubyobj.ParallelDecode(r, uint(1))
+
+		wg := sync.WaitGroup{}
+		wg.Add(2)
+		go readObj(&wg, objC, b)
+		go readErr(&wg, errC, b)
+		wg.Wait()
+
+		r.Reset()
+	}
+}
+
+func readObj(wg *sync.WaitGroup, objC <-chan rubyobj.RubyObject, b *testing.B) {
+	defer wg.Done()
+	for obj := range objC {
+		_ = obj
+	}
+}
+
+func readErr(wg *sync.WaitGroup, errC <-chan error, b *testing.B) {
+	defer wg.Done()
+	for err := range errC {
+		b.Logf("error: %v", err)
+	}
+}
+
 func BenchmarkEncode_TinyDump(b *testing.B)   { encode(b, "testdata/tiny.json") }
 func BenchmarkEncode_SmallDump(b *testing.B)  { encode(b, "testdata/small.json") }
 func BenchmarkEncode_MediumDump(b *testing.B) { encode(b, "testdata/medium.json") }
+func BenchmarkEncode_BigDump(b *testing.B)    { encode(b, "testdata/big.json") }
 func BenchmarkEncode_HugeDump(b *testing.B)   { encode(b, "testdata/huge.json") }
 
 func encode(b *testing.B, filename string) {
