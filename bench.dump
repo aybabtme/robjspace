@@ -1,0 +1,6 @@
+PASS
+BenchmarkDecode_TinyDump	 5000000	       308 ns/op
+BenchmarkDecode_SmallDump	 5000000	       359 ns/op
+BenchmarkEncode_TinyDump	      10	 132646092 ns/op
+BenchmarkEncode_SmallDump	    1000	   2663438 ns/op
+ok  	github.com/aybabtme/rubyobj	11.784s
