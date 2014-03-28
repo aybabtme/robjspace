@@ -1,4 +1,4 @@
-package robjspace
+package rubyobj
 
 import (
 	"fmt"
@@ -168,6 +168,9 @@ func (ro *RubyObject) saveSchema() (schema *objectSchema) {
 }
 
 func parseHexUint64(hexStr string) (uint64, error) {
+	if len(hexStr) != 14 {
+		return 0, nil
+	}
 	return strconv.ParseUint(hexStr[2:], 16, 64)
 }
 

@@ -1,4 +1,4 @@
-package robjspace
+package rubyobj
 
 import (
 	"fmt"
@@ -72,7 +72,6 @@ const (
 	Float
 	Hash
 	Iclass
-	Mask
 	Match
 	Module
 	Nil
@@ -81,6 +80,7 @@ const (
 	Object
 	Rational
 	Regexp
+	Root
 	String
 	Struct
 	Symbol
@@ -114,23 +114,23 @@ func (rt RubyType) Name() string {
 		return "HASH"
 	case Iclass:
 		return "ICLASS"
-	case Mask:
-		return "MATCH"
 	case Match:
-		return "MODULE"
+		return "MATCH"
 	case Module:
-		return "NIL"
+		return "MODULE"
 	case Nil:
-		return "NODE"
+		return "NIL"
 	case Node:
-		return "NONE"
+		return "NODE"
 	case None:
-		return "OBJECT"
+		return "NONE"
 	case Object:
-		return "RATIONAL"
+		return "OBJECT"
 	case Rational:
-		return "REGEXP"
+		return "RATIONAL"
 	case Regexp:
+		return "REGEXP"
+	case Root:
 		return "ROOT"
 	case String:
 		return "STRING"
@@ -173,23 +173,23 @@ func typeFromName(typename string) (RubyType, error) {
 	case "ICLASS":
 		return Iclass, nil
 	case "MATCH":
-		return Mask, nil
-	case "MODULE":
 		return Match, nil
-	case "NIL":
+	case "MODULE":
 		return Module, nil
-	case "NODE":
+	case "NIL":
 		return Nil, nil
-	case "NONE":
+	case "NODE":
 		return Node, nil
-	case "OBJECT":
+	case "NONE":
 		return None, nil
-	case "RATIONAL":
+	case "OBJECT":
 		return Object, nil
-	case "REGEXP":
+	case "RATIONAL":
 		return Rational, nil
-	case "ROOT":
+	case "REGEXP":
 		return Regexp, nil
+	case "ROOT":
+		return Root, nil
 	case "STRING":
 		return String, nil
 	case "STRUCT":

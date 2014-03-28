@@ -1,4 +1,4 @@
-package robjspace
+package rubyobj
 
 type flagSchema struct {
 	WbProtected bool `json:"wb_protected,omitempty"`

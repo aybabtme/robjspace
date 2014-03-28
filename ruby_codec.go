@@ -1,4 +1,4 @@
-package robjspace
+package rubyobj
 
 import (
 	"encoding/json"
@@ -14,12 +14,12 @@ func NewDecoder(r io.Reader) *Decoder {
 }
 
 func (d *Decoder) Decode(rObj *RubyObject) (err error) {
-	var schema *objectSchema
-	err = d.dec.Decode(schema)
+	var schema objectSchema
+	err = d.dec.Decode(&schema)
 	if err != nil {
 		return err
 	}
-	return rObj.loadSchema(schema)
+	return rObj.loadSchema(&schema)
 }
 
 type Encoder struct {
