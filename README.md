@@ -31,10 +31,19 @@ if err != io.EOF {
 
 # Performance
 
-Using the fast `ParallelDecode`:
+Using the fast `ParallelDecode` (using many NumCPU cores, goroutines and
+[`fatherhood`](https://github.com/aybabtme/fatherhood)):
 
 ```bash
 $ go run loadall.go parallel --filename ../testdata/huge.json
 loading 549MB from 'huge.json'
 2489364 heap objects in 4.699698607s
+```
+
+In comparison, the `NewDecoder` (using `encoding/json`):
+
+```bash
+$ go run loadall.go trivial --filename ../testdata/huge.json
+loading 549MB from 'huge.json'
+2489364 heap objects in 2m44.960795009s
 ```
