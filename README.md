@@ -31,7 +31,7 @@ if err != io.EOF {
 
 # Performance
 
-Using the fast `ParallelDecode` (using many NumCPU cores, goroutines and
+Using the fast `ParallelDecode` (using `NumCPU` cores and goroutines, and
 [`fatherhood`](https://github.com/aybabtme/fatherhood)):
 
 ```bash
